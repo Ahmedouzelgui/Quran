@@ -802,7 +802,18 @@ footer .fx{margin-right:auto;max-width:620px}
   <button type="button" id="undoBtn">Rückgängig</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 <script>
+const SUPABASE_URL = https://hoyecvxopblihykvvcyj.supabase.co
+const SUPABASE_KEY = sb_publishable_MqgFH0gNyGdA-RqU3HQ4Gw_9tnu0u6M
+
+const supabaseClient = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+  );
+
+  
 const SURAHS = `1|Al-Fātiḥa|الفاتحة|7
 2|Al-Baqara|البقرة|286
 3|Āli ʿImrān|آل عمران|200
