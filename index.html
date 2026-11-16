@@ -813,6 +813,25 @@ const supabaseClient = supabase.createClient(
   SUPABASE_KEY
   );
 
+async function hifzLogin() {
+  const email = prompt("E-Mail-Adresse:");
+  if (!email) return;
+
+  const password = prompt("Passwort:");
+  if (!password) return;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    alert("Anmeldung fehlgeschlagen: " + error.message);
+    return;
+  }
+
+  alert("Erfolgreich angemeldet!");
+}
   
 const SURAHS = `1|Al-Fātiḥa|الفاتحة|7
 2|Al-Baqara|البقرة|286
