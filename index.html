@@ -652,6 +652,10 @@ footer .fx{margin-right:auto;max-width:620px}
     </div>
   </div>
   <div class="topbar-actions">
+    <button type="button" class="btn" id="loginBtn">
+      Anmelden
+    </button>button>
+    
     <button type="button" class="btn icon" id="themeBtn" title="Hell/Dunkel umschalten" aria-label="Farbschema umschalten">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     </button>
@@ -1443,6 +1447,7 @@ function syncSortUI(){
 sortBtn.addEventListener('click',()=>{
   state.sort=state.sort==='due'?'manual':'due';syncSortUI();save();render();
 });
+$('#loginBtn').addEventListener('click', hifzLogin);
 $('#addBtn').addEventListener('click',()=>openDialog());
 $('#undoBtn').addEventListener('click',undo);
 $('#themeBtn').addEventListener('click',()=>{
