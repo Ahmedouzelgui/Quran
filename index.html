@@ -66,6 +66,33 @@ main,.panel{max-width:1240px;margin:auto;padding:22px clamp(13px,4vw,40px) 150px
 .overlay{position:fixed;inset:0;z-index:100;background:#080d0bea;display:grid;place-items:center;padding:25px;overflow:auto}.profiles{width:min(980px,100%);text-align:center;color:#fff}.profile-grid{display:flex;justify-content:center;gap:24px;flex-wrap:wrap}.profile-tile{width:145px;background:none;border:0;color:#ddd}.avatar{width:140px;height:140px;border-radius:15px;background:linear-gradient(145deg,#1d8664,#0b4938);display:grid;place-items:center;font-size:54px;border:3px solid transparent}.avatar img,.round img{width:100%;height:100%;object-fit:cover}.profile-tile:hover .avatar{border-color:#fff}.profile-tile span{display:block;margin-top:9px}.add-avatar{font-size:68px}.manage{margin-top:30px;background:transparent;color:#ddd;border:1px solid #aaa;padding:9px 18px;border-radius:6px}.profile-actions button{border:0;background:#ffffff18;color:#fff;border-radius:6px;padding:5px;font-size:10px}
 dialog{border:0;border-radius:18px;background:var(--card);color:var(--text);width:min(560px,calc(100vw - 26px));padding:0;box-shadow:0 30px 80px #0008}dialog::backdrop{background:#06100bbb}.dlg-head{padding:17px 20px;border-bottom:1px solid var(--line);font-weight:800}.dlg-body{padding:18px 20px}.dlg-foot{padding:13px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}.field{margin-bottom:13px}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase}.field input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);-webkit-text-fill-color:var(--text)}.avatar-picks{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.avatar-pick{border:2px solid transparent;background:var(--bg);border-radius:13px;padding:14px;font-size:38px}.avatar-pick.selected{border-color:var(--green)}.toast{position:fixed;left:50%;bottom:22px;z-index:400;transform:translate(-50%,150%);transition:.25s;background:#102119;color:#fff;padding:11px 15px;border-radius:12px}.toast.show{transform:translate(-50%,0)}
 @media(max-width:900px){.cards.list .card{grid-template-columns:1fr 1fr}}@media(max-width:700px){.top{flex-wrap:wrap}.logo{display:none}.nav{order:2;width:100%}.nav button{flex:1;padding:8px 4px;font-size:11px}.stats{grid-template-columns:repeat(2,1fr)}.calendar{grid-template-columns:repeat(7,112px)}.cards.list .card{grid-template-columns:1fr}.profile-tile{width:108px}.avatar{width:104px;height:104px}.sync{width:100%;margin-left:0}}
+
+.cards.list .card-foot{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-end;
+  gap:3px;
+  margin:0;
+  justify-self:end;
+  width:30px;
+}
+
+.cards.list .icon-btn{
+  width:25px;
+  height:25px;
+  min-width:25px;
+  padding:0 !important;
+  margin:0;
+  display:grid;
+  place-items:center;
+  border-radius:6px !important;
+  font-size:12px;
+}
+
+</style>
+
+
 </style>
 </head><body>
 <div id="profileScreen" class="overlay" hidden><div class="profiles"><h1>Wer lernt gerade?</h1><div id="profileGrid" class="profile-grid"></div><button id="manageProfiles" class="manage">Profile verwalten</button></div></div>
