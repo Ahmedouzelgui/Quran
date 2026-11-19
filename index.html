@@ -21,7 +21,45 @@ html[data-theme=dark]{--bg:#0c1210;--card:#17201c;--text:#edf4f0;--muted:#a5b1ab
 main,.panel{max-width:1240px;margin:auto;padding:22px clamp(13px,4vw,40px) 150px;min-height:calc(100vh - 65px)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat{padding:15px;border-radius:15px;color:#fff;box-shadow:var(--shadow)}.stat.total{background:linear-gradient(145deg,#65736c,#414d47)}.stat.over{background:linear-gradient(145deg,#e25349,#a9231b)}.stat.today{background:linear-gradient(145deg,#f3bd43,#c37a05);color:#352100}.stat.ok{background:linear-gradient(145deg,#25a66e,#07613e)}.stat b{font-size:29px;display:block}.stat span{font-size:12px;font-weight:750}
 .tools,.heading,.calbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:15px 0}.search{flex:1;min-width:210px}.search input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--card);color:var(--text)}.switch{display:flex;padding:3px;border:1px solid var(--line);border-radius:11px;background:var(--card)}.switch button{border:0;background:transparent;padding:6px 10px;border-radius:8px;font-size:12px;font-weight:750}.switch button.active{background:var(--green);color:#fff}.sync{margin-left:auto;font-size:12px;color:var(--muted)}.sync.ok{color:var(--green)}.sync.err{color:var(--red)}.plus{width:34px;height:34px;border:0;border-radius:50%;background:var(--green);color:#fff;font-size:24px}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}.card{--status:var(--none);--ink:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--status) 93%,white),color-mix(in srgb,var(--status) 78%,black));color:var(--ink);border:1px solid color-mix(in srgb,var(--status) 75%,black);border-radius:var(--r);padding:16px;box-shadow:0 15px 34px -23px var(--status)}.card.over{--status:var(--red)}.card.today{--status:var(--yellow);--ink:#352100}.card.ok{--status:var(--green)}.card h3{margin:0}.sub{opacity:.82;font-size:12px}.dates{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0;padding:11px;background:#ffffff22;border:1px solid #ffffff24;border-radius:12px}.dates small{display:block;opacity:.78}.repeat{display:flex;gap:8px}.repeat input{width:68px;padding:8px;border:1px solid #ffffff66;border-radius:9px;background:#fff;color:#18211e;-webkit-text-fill-color:#18211e;appearance:none;-webkit-appearance:none;text-align:center;font-weight:800}.quick-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.quick-day{border:1px solid #ffffff70;background:#ffffff22;color:inherit;border-radius:8px;padding:4px 9px;min-width:34px;font-size:11px;font-weight:800}.quick-day.active{background:#fff;color:#174233}.card-foot{display:flex;gap:7px;justify-content:flex-end;margin-top:11px}.card .btn{background:#ffffffdf;color:#183029;border:0}.card .primary{background:#fff;color:color-mix(in srgb,var(--status) 75%,black)}.danger{color:#a61f18!important}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}.card{--status:var(--none);--ink:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--status) 93%,white),color-mix(in srgb,var(--status) 78%,black));color:var(--ink);border:1px solid color-mix(in srgb,var(--status) 75%,black);border-radius:var(--r);padding:16px;box-shadow:0 15px 34px -23px var(--status)}.card.over{--status:var(--red)}.card.today{--status:var(--yellow);--ink:#352100}.card.ok{--status:var(--green)}.card h3{margin:0}.sub{opacity:.82;font-size:12px}.dates{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:13px 0;padding:11px;background:#ffffff22;border:1px solid #ffffff24;border-radius:12px}.dates small{display:block;opacity:.78}.repeat{display:flex;gap:8px}.repeat input{width:68px;padding:8px;border:1px solid #ffffff66;border-radius:9px;background:#fff;color:#18211e;-webkit-text-fill-color:#18211e;appearance:none;-webkit-appearance:none;text-align:center;font-weight:800}.quick-days{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}.quick-day{border:1px solid #ffffff70;background:#ffffff22;color:inherit;border-radius:8px;padding:4px 9px;min-width:34px;font-size:11px;font-weight:800}.quick-day.active{background:#fff;color:#174233}
+.due-label{
+  display:none;
+  font-weight:900;
+  font-size:13px;
+}
+
+.due-label.over{
+  color:#fff;
+}
+
+.due-label.today{
+  color:#352100;
+}
+
+.due-label.ok{
+  color:#fff;
+}
+
+.icon-btn{
+  width:32px;
+  height:32px;
+  padding:0!important;
+  display:grid;
+  place-items:center;
+  border-radius:8px!important;
+  font-size:15px;
+  font-weight:900;
+}
+
+.cards.list .due-label{
+  display:block;
+}
+
+.cards.list .card-foot{
+  gap:5px;
+}
+  
+.card-foot{display:flex;gap:7px;justify-content:flex-end;margin-top:11px}.card .btn{background:#ffffffdf;color:#183029;border:0}.card .primary{background:#fff;color:color-mix(in srgb,var(--status) 75%,black)}.danger{color:#a61f18!important}
 .cards.list{display:block}.cards.list .card{display:grid;grid-template-columns:minmax(170px,1.1fr) minmax(225px,1fr) 210px 140px;gap:12px;align-items:center;margin-bottom:7px;padding:9px 11px;border-radius:11px}.cards.list .dates{margin:0}.cards.list .quick-days{display:none}.cards.list .card-foot{margin:0}.empty{text-align:center;padding:70px 20px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
 .juz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:13px}.juz{border:1px solid var(--line);background:var(--card);border-radius:15px;padding:12px}.juz h3{font-size:14px;margin:0 0 9px}.surahs{display:flex;flex-wrap:wrap;gap:5px}.sura{flex:1 1 100px;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px;font-size:10px}.sura.done{background:var(--green);border-color:var(--green);color:#fff}.progress{height:8px;background:var(--line);border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--green)}
 .calbar{justify-content:space-between}.calendar{display:grid;grid-template-columns:repeat(7,minmax(108px,1fr));gap:7px;overflow-x:auto}.weekday{text-align:center;font-size:11px;font-weight:800;color:var(--muted)}.day{min-height:130px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:7px}.day.out{opacity:.45}.day.today{outline:2px solid var(--yellow)}.date{font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px}.event{width:100%;border:0;border-left:4px solid var(--green);background:color-mix(in srgb,var(--green) 15%,var(--card));border-radius:7px;padding:6px;margin-bottom:5px;text-align:left;font-size:10px;font-weight:750;touch-action:none;user-select:none}.event.overdue{background:color-mix(in srgb,var(--red) 22%,var(--card));border-left-color:var(--red);color:var(--red)}.event.future{border:1px dashed var(--green);border-left:4px dashed var(--green);background:transparent;color:var(--muted);pointer-events:none}.event.dragging{position:fixed;z-index:300;width:170px;pointer-events:none;opacity:.94;box-shadow:0 14px 35px #0006}.day.drop{outline:2px dashed var(--green)}
@@ -167,9 +205,105 @@ async function reloadAll(){if(!activeProfile)return;const [a,b]=await Promise.al
 function queueReload(){clearTimeout(reloadTimer);reloadTimer=setTimeout(reloadAll,120)}function subscribe(){if(channel)db.removeChannel(channel);channel=db.channel('hifz-'+activeProfile).on('postgres_changes',{event:'*',schema:'public',table:'hifz_items',filter:'profile_id=eq.'+activeProfile},queueReload).on('postgres_changes',{event:'*',schema:'public',table:'overview_marks',filter:'profile_id=eq.'+activeProfile},queueReload).on('postgres_changes',{event:'*',schema:'public',table:'profiles'},loadProfiles).subscribe()}
 function renderProfiles(){const managing=$('#manageProfiles').dataset.on==='1';$('#profileGrid').innerHTML=profiles.map(p=>`<div><button class="profile-tile" data-profile="${p.id}"><div class="avatar">${avatarMarkup(p.avatar)}</div><span>${esc(p.name)}</span></button>${managing?`<div class="profile-actions"><button data-edit-profile="${p.id}">Bearbeiten</button><button data-delete-profile="${p.id}">Löschen</button></div>`:''}</div>`).join('')+`<button class="profile-tile" data-add-profile><div class="avatar add-avatar">+</div><span>Profil hinzufügen</span></button>`}function setProfileIcon(){const p=profiles.find(x=>x.id===activeProfile);$('#profileBtn').innerHTML=p?avatarMarkup(p.avatar):'?'}async function chooseProfile(id){activeProfile=id;localStorage.setItem('hifz-active-profile',id);$('#profileScreen').hidden=true;setProfileIcon();subscribe();await reloadAll()}
 function status(i){if(!i.next)return'none';const d=diffDays(TODAY(),i.next);return d<0?'over':d===0?'today':'ok'}
-function renderPlan(){const q=$('#search').value.toLowerCase();let list=items.filter(i=>(i.name+' '+(i.num||'')).toLowerCase().includes(q));if(sortDue)list.sort((a,b)=>(a.next||'9999').localeCompare(b.next||'9999'));const c={over:0,today:0,ok:0};items.forEach(i=>{if(c[status(i)]!=null)c[status(i)]++});$('#total').textContent=items.length;$('#over').textContent=c.over;$('#today').textContent=c.today;$('#ok').textContent=c.ok;$('#countTitle').textContent=items.length+' '+(items.length===1?'Sure':'Suren')+' im Überblick';$('#cards').className='cards '+(layout==='list'?'list':'');$('#empty').hidden=items.length>0;$('#cards').innerHTML=list.map(i=>`<article class="card ${status(i)}"><div><h3>${i.num?i.num+'. ':''}${esc(i.name)}</h3><div class="sub">${esc(i.ar||'')} ${i.section?'· '+esc(i.section):''}</div></div><div class="dates"><div><small>Nächste Wiederholung</small><b>${fmt(i.next)}</b></div><div><small>Zuletzt wiederholt</small><b>${fmt(i.last)}</b></div></div><div><div class="repeat"><input data-days="${i.id}" type="number" min="1" max="999" value="${i.interval||7}"><button class="btn primary" data-done="${i.id}">Wiederholt</button></div><div class="quick-days">${[1,3,7,14,28].map(d=>`<button class="quick-day ${Number(i.interval)===d?'active':''}" data-quick-days="${d}" data-item="${i.id}">${d}</button>`).join('')}</div></div><div class="card-foot"><button class="btn" data-edit="${i.id}">Bearbeiten</button><button class="btn danger" data-delete="${i.id}">Löschen</button></div></article>`).join('');$$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout))}
+
+function dueText(item){
+  if(!item.next){
+    return 'Kein Termin';
+  }
+
+  const days=diffDays(TODAY(),item.next);
+
+  if(days<0){
+    const overdue=Math.abs(days);
+
+    return overdue===1
+      ? 'Überfällig seit 1 Tag'
+      : `Überfällig seit ${overdue} Tagen`;
+  }
+
+  if(days===0){
+    return 'Heute!';
+  }
+
+  if(days===1){
+    return 'Noch 1 Tag';
+  }
+
+  return `Noch ${days} Tage`;
+}
+function renderPlan(){const q=$('#search').value.toLowerCase();let list=items.filter(i=>(i.name+' '+(i.num||'')).toLowerCase().includes(q));if(sortDue)list.sort((a,b)=>(a.next||'9999').localeCompare(b.next||'9999'));const c={over:0,today:0,ok:0};items.forEach(i=>{if(c[status(i)]!=null)c[status(i)]++});$('#total').textContent=items.length;$('#over').textContent=c.over;$('#today').textContent=c.today;$('#ok').textContent=c.ok;$('#countTitle').textContent=items.length+' '+(items.length===1?'Sure':'Suren')+' im Überblick';$('#cards').className='cards '+(layout==='list'?'list':'');$('#empty').hidden=items.length>0;$('#cards').innerHTML=list.map(i=>`<article class="card ${status(i)}"><div><h3>${i.num?i.num+'. ':''}${esc(i.name)}</h3><div class="sub">${esc(i.ar||'')} ${i.section?'· '+esc(i.section):''}</div>
+<div class="due-label ${status(i)}">${dueText(i)}</div>
+</div><div class="dates"><div><small>Nächste Wiederholung</small><b>${fmt(i.next)}</b></div><div><small>Zuletzt wiederholt</small><b>${fmt(i.last)}</b></div></div><div><div class="repeat"><input data-days="${i.id}" type="number" min="1" max="999" value="${i.interval||7}"><button class="btn primary" data-done="${i.id}">Wiederholt</button></div><div class="quick-days">${[1,3,7,14,28].map(d=>`<button class="quick-day ${Number(i.interval)===d?'active':''}" data-quick-days="${d}" data-item="${i.id}">${d}</button>`).join('')}</div>
+
+<div class="card-foot">
+  <button
+    class="btn icon-btn"
+    data-edit="${i.id}"
+    title="Bearbeiten"
+    aria-label="Bearbeiten">
+    ✎
+  </button>
+
+  <button
+    class="btn icon-btn danger"
+    data-delete="${i.id}"
+    title="Löschen"
+    aria-label="Löschen">
+    🗑
+  </button>
+</div>
+
+</article>`).join('');$$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout))}
 function renderOverview(){const done=marks.size;$('#progressBar').style.width=done/114*100+'%';$('#progressText').textContent=done+' von 114 Suren markiert';$('#juzGrid').innerHTML=JUZ.map((r,k)=>{const ss=SURAHS.filter(s=>s.num>=r[0][0]&&s.num<=r[1][0]);return`<article class="juz"><h3>Ǧuzʾ ${k+1}${k===29?' · ʿAmma':''}</h3><div class="surahs">${ss.map(s=>`<button class="sura ${marks.has(s.num)?'done':''}" data-mark="${s.num}">${s.num}. ${esc(s.name)}</button>`).join('')}</div></article>`}).join('')}
-function renderCalendar(){const y=month.getFullYear(),m=month.getMonth(),first=new Date(y,m,1),start=new Date(y,m,1-((first.getDay()+6)%7)),end=new Date(start);end.setDate(start.getDate()+41);$('#monthTitle').textContent=month.toLocaleDateString('de-DE',{month:'long',year:'numeric'});const events=[];items.forEach(i=>{if(!i.next)return;events.push({date:i.next,item:i,type:diffDays(TODAY(),i.next)<0?'overdue':'fixed'});if(+i.interval>0){const projected=addDays(i.next,+i.interval);if(projected>=toISO(start)&&projected<=toISO(end))events.push({date:projected,item:i,type:'future'})}});let h=['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>`<div class="weekday">${x}</div>`).join('');for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const iso=toISO(d);h+=`<div class="day ${d.getMonth()!==m?'out':''} ${iso===TODAY()?'today':''}" data-date="${iso}"><div class="date">${d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}</div>${events.filter(e=>e.date===iso).map(e=>e.type==='future'?`<div class="event future">${esc(e.item.name)}</div>`:`<button class="event ${e.type==='overdue'?'overdue':''}" draggable="true" data-event="${e.item.id}">${esc(e.item.name)}</button>`).join('')}</div>`}$('#calendar').innerHTML=h}
+function renderCalendar(){const y=month.getFullYear(),m=month.getMonth(),first=new Date(y,m,1),start=new Date(y,m,1-((first.getDay()+6)%7)),end=new Date(start);end.setDate(start.getDate()+41);$('#monthTitle').textContent=month.toLocaleDateString('de-DE',{month:'long',year:'numeric'});
+                          
+    const events=[];
+
+const horizonDate=new Date();
+horizonDate.setMonth(horizonDate.getMonth()+12);
+
+const horizon=toISO(horizonDate);
+const calendarStart=toISO(start);
+const calendarEnd=toISO(end);
+
+items.forEach(i=>{
+  if(!i.next)return;
+
+  const interval=Math.max(1,Number(i.interval)||1);
+
+  // Der tatsächlich nächste feste Termin
+  if(i.next>=calendarStart && i.next<=calendarEnd){
+    events.push({
+      date:i.next,
+      item:i,
+      type:diffDays(TODAY(),i.next)<0
+        ? 'overdue'
+        : 'fixed'
+    });
+  }
+
+  // Alle folgenden vorausberechneten Termine
+  // bis mindestens zwölf Monate ab heute
+  let projected=addDays(i.next,interval);
+  let safety=0;
+
+  while(projected<=horizon && safety<400){
+    if(projected>=calendarStart && projected<=calendarEnd){
+      events.push({
+        date:projected,
+        item:i,
+        type:'future'
+      });
+    }
+
+    projected=addDays(projected,interval);
+    safety++;
+  }
+});                      
+                          
+let h=['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>`<div class="weekday">${x}</div>`).join('');for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const iso=toISO(d);h+=`<div class="day ${d.getMonth()!==m?'out':''} ${iso===TODAY()?'today':''}" data-date="${iso}"><div class="date">${d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}</div>${events.filter(e=>e.date===iso).map(e=>e.type==='future'?`<div class="event future">${esc(e.item.name)}</div>`:`<button class="event ${e.type==='overdue'?'overdue':''}" draggable="true" data-event="${e.item.id}">${esc(e.item.name)}</button>`).join('')}</div>`}$('#calendar').innerHTML=h}
+
+  
 function renderAll(){renderPlan();renderOverview();renderCalendar()}async function saveItemRow(row){setSync('Wird gespeichert …');const {error}=await db.from('hifz_items').upsert(row);if(error){toast(error.message);setSync('Fehler','err');return false}setSync('Gespeichert','ok');return true}
 function openProfile(p=null){editingProfile=p?.id||null;$('#profileName').value=p?.name||'';selectedAvatar=p?.avatar||'cat';$('#avatarPicks').innerHTML=Object.keys(AVATARS).map(k=>`<button class="avatar-pick ${k===selectedAvatar?'selected':''}" data-avatar="${k}" title="${LABELS[k]}">${avatarMarkup(k)}</button>`).join('');$('#profileDialog').showModal()}
 $('#avatarPicks').onclick=e=>{const b=e.target.closest('[data-avatar]');if(!b)return;const name=$('#profileName').value.trim();if(b.dataset.avatar==='lion'&&name.toLocaleLowerCase('de-DE')!=='ahmed')return toast('Nur Ahmed der Löwe ist.');selectedAvatar=b.dataset.avatar;$$('.avatar-pick').forEach(x=>x.classList.toggle('selected',x===b))};
