@@ -1539,12 +1539,43 @@ syncFilterUI();syncSortUI();render();
 .hx-sura:hover{transform:translateY(-2px);border-color:var(--accent)}.hx-sura.done{background:linear-gradient(145deg,var(--accent),var(--accent-2));border-color:transparent;color:#fff}
 .hx-sura b{font-size:11px}.hx-sura span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hx-juz.zoom{grid-column:1/-1}.hx-juz.zoom .hx-sura{min-width:92px;height:58px;font-size:12px}
 .hx-progress{height:7px;background:var(--bg-soft);border-radius:99px;overflow:hidden;margin:0 0 10px}.hx-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:inherit}
-.hx-calbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}.hx-calbar h2{margin:0;font-size:19px}.hx-calendar{display:grid;grid-template-columns:repeat(7,minmax(100px,1fr));gap:7px;overflow-x:auto}.hx-weekday{text-align:center;color:var(--text-2);font-size:11px;font-weight:800;text-transform:uppercase;padding:4px}.hx-day{min-height:128px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:7px}.hx-day.out{opacity:.48}.hx-day.today{border-color:var(--gold);box-shadow:0 0 0 2px var(--today-bg)}.hx-date{font-size:11px;font-weight:800;color:var(--text-2);margin-bottom:6px}.hx-event{width:100%;border:0;border-left:4px solid var(--accent);background:var(--accent-soft);color:var(--text);border-radius:7px;padding:6px;margin:0 0 5px;text-align:left;font-size:10.5px;font-weight:750;line-height:1.25;cursor:grab}.hx-event:active{cursor:grabbing}.hx-drop{outline:2px dashed var(--accent);outline-offset:-4px;background:var(--accent-soft)}
+.hx-calbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}.hx-calbar h2{margin:0;font-size:19px}.hx-calendar{display:grid;grid-template-columns:repeat(7,minmax(100px,1fr));gap:7px;overflow-x:auto}.hx-weekday{text-align:center;color:var(--text-2);font-size:11px;font-weight:800;text-transform:uppercase;padding:4px}.hx-day{min-height:128px;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:7px}.hx-day.out{opacity:.48}.hx-day.today{border-color:var(--gold);box-shadow:0 0 0 2px var(--today-bg)}.hx-date{font-size:11px;font-weight:800;color:var(--text-2);margin-bottom:6px}.hx-event{   width:100%;   border:0;   border-left:4px solid var(--accent);   background:var(--accent-soft);   color:var(--text);   border-radius:7px;   padding:6px;   margin:0 0 5px;   text-align:left;   font-size:10.5px;   font-weight:750;   line-height:1.25;   cursor:grab;   touch-action:manipulation;   user-select:none;   -webkit-user-select:none; }  .hx-event.future{   border:1px dashed var(--accent);   border-left:4px dashed var(--accent);   background:transparent;   color:var(--text-2);   opacity:.72;   cursor:default; }  .hx-event.dragging{   position:fixed;   z-index:500;   width:170px;   pointer-events:none;   opacity:.92;   transform:scale(1.04);   box-shadow:0 12px 30px #0005;   cursor:grabbing; }  .hx-event.touch-ready{   box-shadow:0 0 0 3px var(--accent-soft);   transform:scale(1.03); }  body.hx-dragging{   overflow:hidden;   touch-action:none; }.hx-event:active{cursor:grabbing}.hx-drop{outline:2px dashed var(--accent);outline-offset:-4px;background:var(--accent-soft)}
 @media(max-width:700px){.hx-calendar{grid-template-columns:repeat(7,112px)}.hx-tab{font-size:12px;padding:8px 10px}}
 </style>
 <script>
 (()=>{
-  const JUZ_START=[1,1,1,3,4,6,7,8,9,10,11,11,12,13,13,14,14,15,15,16,16,17,17,18,18,18,19,19,20,20,21,21,21,21,22,22,22,23,23,23,24,24,25,25,25,26,26,26,26,26,26,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,29,29,29,29,29,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30];
+  const JUZ_RANGES = [
+  [[1,1],[2,141]],
+  [[2,142],[2,252]],
+  [[2,253],[3,92]],
+  [[3,93],[4,23]],
+  [[4,24],[4,147]],
+  [[4,148],[5,81]],
+  [[5,82],[6,110]],
+  [[6,111],[7,87]],
+  [[7,88],[8,40]],
+  [[8,41],[9,92]],
+  [[9,93],[11,5]],
+  [[11,6],[12,52]],
+  [[12,53],[14,52]],
+  [[15,1],[16,128]],
+  [[17,1],[18,74]],
+  [[18,75],[20,135]],
+  [[21,1],[22,78]],
+  [[23,1],[25,20]],
+  [[25,21],[27,55]],
+  [[27,56],[29,45]],
+  [[29,46],[33,30]],
+  [[33,31],[36,27]],
+  [[36,28],[39,31]],
+  [[39,32],[41,46]],
+  [[41,47],[45,37]],
+  [[46,1],[51,30]],
+  [[51,31],[57,29]],
+  [[58,1],[66,12]],
+  [[67,1],[77,50]],
+  [[78,1],[114,6]]
+];
   const main=document.querySelector('main');
 if(!main || typeof SURAHS==='undefined' || typeof state==='undefined'){
   console.error('Ḥifẓ-Erweiterung konnte nicht gestartet werden: Hauptprogramm oder Daten fehlen.');
@@ -1554,16 +1585,374 @@ if(!main || typeof SURAHS==='undefined' || typeof state==='undefined'){
   main.before(tabs);const map=document.createElement('section'),cal=document.createElement('section');map.className='hx-panel';cal.className='hx-panel';map.hidden=cal.hidden=true;main.after(map,cal);
   let month=new Date();month.setDate(1);let zoom=null;
   const memorized=num=>state.items.some(i=>+i.num===+num);
+
+function surahsInJuz(juzNumber){
+  const range = JUZ_RANGES[juzNumber - 1];
+  const startSurah = range[0][0];
+  const startAyah = range[0][1];
+  const endSurah = range[1][0];
+  const endAyah = range[1][1];
+
+  return SURAHS
+    .filter(s => s.num >= startSurah && s.num <= endSurah)
+    .map(s => {
+      const from = s.num === startSurah ? startAyah : 1;
+      const to = s.num === endSurah ? endAyah : s.ay;
+
+      return {
+        ...s,
+        from: from,
+        to: to,
+        partAyahs: Math.max(1, to - from + 1),
+        rangeLabel: from === 1 && to === s.ay
+          ? s.ay + " Verse"
+          : "Verse " + from + "–" + to
+      };
+    });
+}
+  
   function ensureItem(s){let it=state.items.find(i=>+i.num===s.num);if(it)return it;it={id:uid(),created:Date.now(),num:s.num,name:s.name,ar:s.ar,ayahs:s.ay,section:'',last:null,interval:null,next:null};state.items.push(it);return it}
   function toggleSura(num){const s=SURAHS.find(x=>x.num===num),at=state.items.findIndex(i=>+i.num===num);if(at>=0)state.items.splice(at,1);else ensureItem(s);save();render();renderMap();renderCal()}
-  function renderMap(){const done=SURAHS.filter(s=>memorized(s.num)).length;let html='<h2 style="margin:0 0 4px">Dein auswendig gelernter Qurʾān</h2><p class="hx-note">Klicke eine Sure an, um sie als gelernt oder noch offen zu markieren. Klicke auf einen Ǧuzʾ, um die kleinen Suren vergrößert anzuzeigen.</p><div class="hx-progress"><i style="width:'+(done/114*100)+'%"></i></div><p class="hx-note"><strong>'+done+' von 114 Suren</strong> markiert</p><div class="hx-juz-grid">';
-    for(let j=1;j<=30;j++){const ss=SURAHS.filter(s=>JUZ_START[s.num-1]===j);html+='<article class="hx-juz'+(zoom===j?' zoom':'')+'"><button class="hx-juz-head" data-juz="'+j+'"><span>Ǧuzʾ '+j+(j===30?' · ʿAmma':'')+'</span><small>'+ss.filter(s=>memorized(s.num)).length+'/'+ss.length+' · '+(zoom===j?'verkleinern':'vergrößern')+'</small></button><div class="hx-surahs">'+ss.map(s=>'<button class="hx-sura '+(memorized(s.num)?'done':'')+'" data-sura="'+s.num+'" style="--w:'+Math.max(.65,Math.min(5,Math.sqrt(s.ay)/3)).toFixed(2)+'" title="'+s.num+'. '+s.name+' · '+s.ay+' Verse"><b>'+s.num+'</b><span>'+s.name+'</span></button>').join('')+'</div></article>'}map.innerHTML=html+'</div>'}
+  function renderMap(){
+  const done = SURAHS.filter(s => memorized(s.num)).length;
+
+  let html =
+    '<h2 style="margin:0 0 4px">Dein auswendig gelernter Qurʾān</h2>' +
+    '<p class="hx-note">Jede Sure wird in allen Ǧuzʾ angezeigt, in denen sie tatsächlich vorkommt. ' +
+    'Klicke eine Sure an, um sie als gelernt oder offen zu markieren.</p>' +
+    '<div class="hx-progress"><i style="width:' + (done / 114 * 100) + '%"></i></div>' +
+    '<p class="hx-note"><strong>' + done + ' von 114 Suren</strong> markiert</p>' +
+    '<div class="hx-juz-grid">';
+
+  for(let j = 1; j <= 30; j++){
+    const ss = surahsInJuz(j);
+    const completed = ss.filter(s => memorized(s.num)).length;
+
+    html +=
+      '<article class="hx-juz' + (zoom === j ? ' zoom' : '') + '">' +
+        '<button type="button" class="hx-juz-head" data-juz="' + j + '">' +
+          '<span>Ǧuzʾ ' + j + (j === 30 ? ' · ʿAmma' : '') + '</span>' +
+          '<small>' + completed + '/' + ss.length + ' · ' +
+          (zoom === j ? 'verkleinern' : 'vergrößern') + '</small>' +
+        '</button>' +
+        '<div class="hx-surahs">' +
+          ss.map(s =>
+            '<button type="button" class="hx-sura ' +
+              (memorized(s.num) ? 'done' : '') +
+              '" data-sura="' + s.num +
+              '" style="--w:' +
+              Math.max(.65, Math.min(5, Math.sqrt(s.partAyahs) / 3)).toFixed(2) +
+              '" title="' + s.num + '. ' + esc(s.name) + ' · ' +
+              esc(s.rangeLabel) + '">' +
+                '<b>' + s.num + '</b>' +
+                '<span>' + esc(s.name) + '</span>' +
+            '</button>'
+          ).join('') +
+        '</div>' +
+      '</article>';
+  }
+
+  map.innerHTML = html + '</div>';
+}
   function monthTitle(){return month.toLocaleDateString('de-DE',{month:'long',year:'numeric'})}
-  function renderCal(){const y=month.getFullYear(),m=month.getMonth(),first=new Date(y,m,1),start=new Date(y,m,1-((first.getDay()+6)%7));let html='<div class="hx-calbar"><button class="btn sm" data-cal="-1">‹ Zurück</button><h2>'+monthTitle()+'</h2><div><button class="btn sm" data-cal="0">Heute</button> <button class="btn sm" data-cal="1">Weiter ›</button></div></div><p class="hx-note">Ziehe eine Sure auf einen anderen Tag. Das Datum <strong>„Nächste Wiederholung“</strong> wird sofort im Wiederholungsplan und in localStorage aktualisiert.</p><div class="hx-calendar">'+['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>'<div class="hx-weekday">'+x+'</div>').join('');for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const iso=toISO(d),items=state.items.filter(i=>i.next===iso);html+='<div class="hx-day '+(d.getMonth()!==m?'out ':'')+(iso===TODAY()?'today':'')+'" data-date="'+iso+'"><div class="hx-date">'+d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})+'</div>'+items.map(i=>'<button draggable="true" class="hx-event" data-id="'+i.id+'">'+(i.num?i.num+'. ':'')+esc(i.name)+'</button>').join('')+'</div>'}cal.innerHTML=html+'</div>'}
+
+function renderCal(){
+  const y = month.getFullYear();
+  const m = month.getMonth();
+  const first = new Date(y, m, 1);
+  const start = new Date(y, m, 1 - ((first.getDay() + 6) % 7));
+  const end = new Date(start);
+  end.setDate(start.getDate() + 41);
+
+  const startISO = toISO(start);
+  const endISO = toISO(end);
+
+  const calendarEvents = [];
+
+  state.items.forEach(item => {
+    if(!item.next) return;
+
+    calendarEvents.push({
+      id: item.id,
+      date: item.next,
+      item: item,
+      future: false
+    });
+
+    const interval = Number(item.interval);
+
+    if(interval > 0){
+      let projectedDate = addDays(item.next, interval);
+      let safety = 0;
+
+      while(projectedDate <= endISO && safety < 500){
+        if(projectedDate >= startISO){
+          calendarEvents.push({
+            id: item.id,
+            date: projectedDate,
+            item: item,
+            future: true
+          });
+        }
+
+        projectedDate = addDays(projectedDate, interval);
+        safety++;
+      }
+    }
+  });
+
+  let html =
+    '<div class="hx-calbar">' +
+      '<button type="button" class="btn sm" data-cal="-1">‹ Zurück</button>' +
+      '<h2>' + monthTitle() + '</h2>' +
+      '<div>' +
+        '<button type="button" class="btn sm" data-cal="0">Heute</button> ' +
+        '<button type="button" class="btn sm" data-cal="1">Weiter ›</button>' +
+      '</div>' +
+    '</div>' +
+    '<p class="hx-note">' +
+      '<strong>Durchgezogen:</strong> nächste fest eingestellte Wiederholung. ' +
+      '<strong>Gestrichelt:</strong> automatisch vorausberechnete Folgetermine. ' +
+      'Zum Verschieben einen durchgezogenen Termin auf dem iPhone oder iPad länger gedrückt halten und dann ziehen.' +
+    '</p>' +
+    '<div class="hx-calendar">' +
+      ['Mo','Di','Mi','Do','Fr','Sa','So']
+        .map(x => '<div class="hx-weekday">' + x + '</div>')
+        .join('');
+
+  for(let n = 0; n < 42; n++){
+    const d = new Date(start);
+    d.setDate(start.getDate() + n);
+
+    const iso = toISO(d);
+    const items = calendarEvents.filter(event => event.date === iso);
+
+    html +=
+      '<div class="hx-day ' +
+        (d.getMonth() !== m ? 'out ' : '') +
+        (iso === TODAY() ? 'today' : '') +
+        '" data-date="' + iso + '">' +
+          '<div class="hx-date">' +
+            d.toLocaleDateString('de-DE', {
+              day:'2-digit',
+              month:'2-digit'
+            }) +
+          '</div>' +
+
+          items.map(event => {
+            const item = event.item;
+
+            if(event.future){
+              return '<div class="hx-event future" ' +
+                'title="Vorausberechneter Folgetermin">' +
+                (item.num ? item.num + '. ' : '') +
+                esc(item.name) +
+              '</div>';
+            }
+
+            return '<button type="button" draggable="true" ' +
+              'class="hx-event" data-id="' + esc(item.id) + '">' +
+              (item.num ? item.num + '. ' : '') +
+              esc(item.name) +
+            '</button>';
+          }).join('') +
+      '</div>';
+  }
+
+  cal.innerHTML = html + '</div>';
+}
+  
   tabs.addEventListener('click',e=>{const b=e.target.closest('[data-hx]');if(!b)return;tabs.querySelectorAll('.hx-tab').forEach(x=>x.setAttribute('aria-selected',String(x===b)));main.hidden=b.dataset.hx!=='plan';map.hidden=b.dataset.hx!=='map';cal.hidden=b.dataset.hx!=='calendar';if(!map.hidden)renderMap();if(!cal.hidden)renderCal()});
   map.addEventListener('click',e=>{const s=e.target.closest('[data-sura]'),j=e.target.closest('[data-juz]');if(s)toggleSura(+s.dataset.sura);else if(j){zoom=zoom===+j.dataset.juz?null:+j.dataset.juz;renderMap()}});
   cal.addEventListener('click',e=>{const b=e.target.closest('[data-cal]');if(!b)return;if(b.dataset.cal==='0'){month=new Date();month.setDate(1)}else month.setMonth(month.getMonth()+ +b.dataset.cal);renderCal()});
-  let dragging=null;cal.addEventListener('dragstart',e=>{const x=e.target.closest('.hx-event');if(x){dragging=x.dataset.id;e.dataTransfer.effectAllowed='move'}});cal.addEventListener('dragover',e=>{const d=e.target.closest('.hx-day');if(d){e.preventDefault();d.classList.add('hx-drop')}});cal.addEventListener('dragleave',e=>e.target.closest('.hx-day')?.classList.remove('hx-drop'));cal.addEventListener('drop',e=>{const d=e.target.closest('.hx-day');if(!d||!dragging)return;e.preventDefault();const it=state.items.find(i=>i.id===dragging);if(it){it.next=d.dataset.date;if(it.last)it.interval=Math.max(1,diffDays(it.last,it.next));save();render();renderCal();toast('„'+it.name+'“ auf '+fmtShort(it.next)+' verschoben',false)}dragging=null});
+
+let dragging = null;
+let touchDrag = null;
+let holdTimer = null;
+
+/* Laptop und Desktop */
+cal.addEventListener('dragstart', e => {
+  const event = e.target.closest('.hx-event:not(.future)');
+  if(!event) return;
+
+  dragging = event.dataset.id;
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', dragging);
+});
+
+cal.addEventListener('dragover', e => {
+  const day = e.target.closest('.hx-day');
+  if(!day) return;
+
+  e.preventDefault();
+  cal.querySelectorAll('.hx-drop')
+    .forEach(x => x.classList.remove('hx-drop'));
+
+  day.classList.add('hx-drop');
+});
+
+cal.addEventListener('dragleave', e => {
+  const day = e.target.closest('.hx-day');
+  if(day) day.classList.remove('hx-drop');
+});
+
+cal.addEventListener('drop', e => {
+  const day = e.target.closest('.hx-day');
+  if(!day || !dragging) return;
+
+  e.preventDefault();
+  moveCalendarItem(dragging, day.dataset.date);
+  dragging = null;
+});
+
+/* Gemeinsame Verschiebefunktion */
+function moveCalendarItem(id, newDate){
+  const item = state.items.find(i => i.id === id);
+  if(!item) return;
+
+  item.next = newDate;
+
+  if(item.last){
+    item.interval = Math.max(1, diffDays(item.last, item.next));
+  }
+
+  save();
+  render();
+  renderCal();
+
+  toast(
+    '„' + item.name + '“ auf ' + fmtShort(item.next) + ' verschoben',
+    false
+  );
+}
+
+/* iPhone und iPad: länger drücken und anschließend ziehen */
+cal.addEventListener('pointerdown', e => {
+  const event = e.target.closest('.hx-event:not(.future)');
+  if(!event || e.pointerType === 'mouse') return;
+
+  clearTimeout(holdTimer);
+
+  const pointerId = e.pointerId;
+  const startX = e.clientX;
+  const startY = e.clientY;
+
+  event.classList.add('touch-ready');
+
+  holdTimer = setTimeout(() => {
+    const rect = event.getBoundingClientRect();
+
+    touchDrag = {
+      id: event.dataset.id,
+      element: event,
+      pointerId: pointerId,
+      offsetX: startX - rect.left,
+      offsetY: startY - rect.top
+    };
+
+    event.classList.remove('touch-ready');
+    event.classList.add('dragging');
+    document.body.classList.add('hx-dragging');
+
+    event.style.left = (startX - touchDrag.offsetX) + 'px';
+    event.style.top = (startY - touchDrag.offsetY) + 'px';
+
+    if(event.setPointerCapture){
+      event.setPointerCapture(pointerId);
+    }
+
+    if(navigator.vibrate){
+      navigator.vibrate(35);
+    }
+  }, 450);
+});
+
+cal.addEventListener('pointermove', e => {
+  if(!touchDrag || e.pointerId !== touchDrag.pointerId) return;
+
+  e.preventDefault();
+
+  const event = touchDrag.element;
+
+  event.style.left = (e.clientX - touchDrag.offsetX) + 'px';
+  event.style.top = (e.clientY - touchDrag.offsetY) + 'px';
+
+  event.style.visibility = 'hidden';
+  const underneath = document.elementFromPoint(e.clientX, e.clientY);
+  event.style.visibility = '';
+
+  const day = underneath && underneath.closest
+    ? underneath.closest('.hx-day')
+    : null;
+
+  cal.querySelectorAll('.hx-drop')
+    .forEach(x => x.classList.remove('hx-drop'));
+
+  if(day){
+    day.classList.add('hx-drop');
+  }
+}, {passive:false});
+
+function finishTouchDrag(e){
+  clearTimeout(holdTimer);
+
+  cal.querySelectorAll('.touch-ready')
+    .forEach(x => x.classList.remove('touch-ready'));
+
+  if(!touchDrag) return;
+  if(e.pointerId !== touchDrag.pointerId) return;
+
+  const event = touchDrag.element;
+
+  event.style.visibility = 'hidden';
+  const underneath = document.elementFromPoint(e.clientX, e.clientY);
+  event.style.visibility = '';
+
+  const day = underneath && underneath.closest
+    ? underneath.closest('.hx-day')
+    : null;
+
+  const id = touchDrag.id;
+
+  event.classList.remove('dragging');
+  event.style.left = '';
+  event.style.top = '';
+
+  document.body.classList.remove('hx-dragging');
+
+  cal.querySelectorAll('.hx-drop')
+    .forEach(x => x.classList.remove('hx-drop'));
+
+  touchDrag = null;
+
+  if(day){
+    moveCalendarItem(id, day.dataset.date);
+  }
+}
+
+cal.addEventListener('pointerup', finishTouchDrag);
+cal.addEventListener('pointercancel', e => {
+  clearTimeout(holdTimer);
+
+  cal.querySelectorAll('.touch-ready')
+    .forEach(x => x.classList.remove('touch-ready'));
+
+  if(touchDrag && e.pointerId === touchDrag.pointerId){
+    const event = touchDrag.element;
+
+    event.classList.remove('dragging');
+    event.style.left = '';
+    event.style.top = '';
+
+    document.body.classList.remove('hx-dragging');
+
+    cal.querySelectorAll('.hx-drop')
+      .forEach(x => x.classList.remove('hx-drop'));
+
+    touchDrag = null;
+  }
+});
+  
   renderMap();renderCal();
 })();
 </script>
