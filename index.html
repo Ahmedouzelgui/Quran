@@ -12,6 +12,32 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Ḥifẓ">
 <title>Qurʾān Ḥifẓ</title>
+
+/* ===== Kompakte Suren-Zeilen ===== */
+.stats{gap:8px;margin-bottom:10px}
+.stat{padding:7px 12px!important;border-radius:11px!important}
+.stat b{font-size:19px!important;display:inline}
+.stat span{margin-left:6px}
+.cards,.cards.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(470px,100%),1fr));gap:5px}
+.cards.list{grid-template-columns:1fr}
+.cards .card,.cards.list .card{display:flex;align-items:center;gap:10px;margin:0;padding:5px 9px;border-radius:9px;box-shadow:none}
+.c-main{flex:1 1 130px;min-width:0}
+.c-main h3{font-size:13px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .sub{font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c-dates{flex:0 0 auto;font-size:10.5px;line-height:1.3;white-space:nowrap}
+.c-dates .due-label,.cards.list .c-dates .due-label{display:block;font-size:11px}
+.c-act{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.c-act input{width:42px;padding:3px;border:1px solid #ffffff66;border-radius:6px;background:#fff;color:#18211e;-webkit-text-fill-color:#18211e;appearance:none;-webkit-appearance:none;text-align:center;font-weight:800;font-size:12px}
+.c-act .btn{padding:4px 8px;font-size:11px;border-radius:7px}
+.cards .quick-days,.cards.list .quick-days{display:flex;gap:2px;margin:0}
+.cards .quick-day{padding:1px 5px;min-width:0;font-size:10px;border-radius:6px}
+.cards .c-act .icon-btn{width:24px;height:24px;min-width:24px;padding:0!important;font-size:12px;border-radius:6px!important}
+@media(max-width:700px){
+  .cards,.cards.list{grid-template-columns:1fr}
+  .cards .card,.cards.list .card{flex-wrap:wrap;gap:4px 10px}
+  .c-act{flex:1 1 100%;justify-content:flex-end}
+}
+
 <style>
 :root{--bg:#f4f6f3;--card:#fff;--text:#17211d;--muted:#617069;--line:#dce4df;--green:#0b774e;--green2:#075c3c;--yellow:#d99b16;--red:#c9362d;--none:#66716c;--shadow:0 14px 36px -25px #09281b99;--r:17px}
 html[data-theme=dark]{--bg:#0c1210;--card:#17201c;--text:#edf4f0;--muted:#a5b1ab;--line:#2b3932;--green:#249b6a;--green2:#16724f;--yellow:#c58a13;--red:#bc3b33;--none:#4c5b54;--shadow:0 18px 45px -25px #000}
@@ -258,26 +284,40 @@ function dueText(item){
 
   return `Noch ${days} Tage`;
 }
-function renderPlan(){const q=$('#search').value.toLowerCase();let list=items.filter(i=>(i.name+' '+(i.num||'')).toLowerCase().includes(q));if(sortDue)list.sort((a,b)=>(a.next||'9999').localeCompare(b.next||'9999'));const c={over:0,today:0,ok:0};items.forEach(i=>{if(c[status(i)]!=null)c[status(i)]++});$('#total').textContent=items.length;$('#over').textContent=c.over;$('#today').textContent=c.today;$('#ok').textContent=c.ok;$('#countTitle').textContent=items.length+' '+(items.length===1?'Sure':'Suren')+' im Überblick';$('#cards').className='cards '+(layout==='list'?'list':'');$('#empty').hidden=items.length>0;$('#cards').innerHTML=list.map(i=>`<article class="card ${status(i)}"><div><h3>${i.num?i.num+'. ':''}${esc(i.name)}</h3><div class="sub">${esc(i.ar||'')} ${i.section?'· '+esc(i.section):''}</div>
-<div class="due-label ${status(i)}">${dueText(i)}</div>
-</div><div class="dates"><div><small>Nächste Wiederholung</small><b>${fmt(i.next)}</b></div><div><small>Zuletzt wiederholt</small><b>${fmt(i.last)}</b></div></div><div><div class="repeat"><input data-days="${i.id}" type="number" min="1" max="999" value="${i.interval||7}"><button class="btn primary" data-done="${i.id}">Wiederholt</button></div><div class="quick-days">${[1,3,7,14,28].map(d=>`<button class="quick-day ${Number(i.interval)===d?'active':''}" data-quick-days="${d}" data-item="${i.id}">${d}</button>`).join('')}</div>
 
-<div class="card-foot">
-  <button
-    class="btn icon-btn"
-    data-edit="${i.id}"
-    title="Bearbeiten"
-    aria-label="Bearbeiten">
-    ✎
-  </button>
+function renderPlan(){
+  const q=$('#search').value.toLowerCase();
+  let list=items.filter(i=>(i.name+' '+(i.num||'')).toLowerCase().includes(q));
+  if(sortDue)list.sort((a,b)=>(a.next||'9999').localeCompare(b.next||'9999'));
+  const c={over:0,today:0,ok:0};
+  items.forEach(i=>{if(c[status(i)]!=null)c[status(i)]++});
+  $('#total').textContent=items.length;
+  $('#over').textContent=c.over;
+  $('#today').textContent=c.today;
+  $('#ok').textContent=c.ok;
+  $('#countTitle').textContent=items.length+' '+(items.length===1?'Sure':'Suren')+' im Überblick';
+  $('#cards').className='cards '+(layout==='list'?'list':'');
+  $('#empty').hidden=items.length>0;
+  $('#cards').innerHTML=list.map(i=>`<article class="card ${status(i)}">
+    <div class="c-main">
+      <h3>${i.num?i.num+'. ':''}${esc(i.name)}</h3>
+      <div class="sub">${esc(i.ar||'')}${i.section?' · '+esc(i.section):''}</div>
+    </div>
+    <div class="c-dates">
+      <div class="due-label ${status(i)}">${dueText(i)}</div>
+      <div>Fällig <b>${fmt(i.next)}</b> · Zuletzt <b>${fmt(i.last)}</b></div>
+    </div>
+    <div class="c-act">
+      <input data-days="${i.id}" type="number" min="1" max="999" value="${i.interval||7}">
+      <div class="quick-days">${[1,3,7,14,28].map(d=>`<button class="quick-day ${Number(i.interval)===d?'active':''}" data-quick-days="${d}" data-item="${i.id}">${d}</button>`).join('')}</div>
+      <button class="btn primary" data-done="${i.id}">Wiederholt</button>
+      <button class="btn icon-btn" data-edit="${i.id}" title="Bearbeiten" aria-label="Bearbeiten">✎</button>
+      <button class="btn icon-btn danger" data-delete="${i.id}" title="Löschen" aria-label="Löschen">🗑</button>
+    </div>
+  </article>`).join('');
+  $$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout));
+}
 
-  <button
-    class="btn icon-btn danger"
-    data-delete="${i.id}"
-    title="Löschen"
-    aria-label="Löschen">
-    🗑
-  </button>
 </div>
 
 </article>`).join('');$$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout))}
