@@ -320,9 +320,6 @@ function renderPlan(){
   $$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout));
 }
 
-</div>
-
-</article>`).join('');$$('[data-layout]').forEach(b=>b.classList.toggle('active',b.dataset.layout===layout))}
 function renderOverview(){const done=marks.size;$('#progressBar').style.width=done/114*100+'%';$('#progressText').textContent=done+' von 114 Suren markiert';$('#juzGrid').innerHTML=JUZ.map((r,k)=>{const ss=SURAHS.filter(s=>s.num>=r[0][0]&&s.num<=r[1][0]);return`<article class="juz"><h3>Ǧuzʾ ${k+1}${k===29?' · ʿAmma':''}</h3><div class="surahs">${ss.map(s=>`<button class="sura ${marks.has(s.num)?'done':''}" data-mark="${s.num}">${s.num}. ${esc(s.name)}</button>`).join('')}</div></article>`}).join('')}
 function renderCalendar(){const y=month.getFullYear(),m=month.getMonth(),first=new Date(y,m,1),start=new Date(y,m,1-((first.getDay()+6)%7)),end=new Date(start);end.setDate(start.getDate()+41);$('#monthTitle').textContent=month.toLocaleDateString('de-DE',{month:'long',year:'numeric'});
                           
