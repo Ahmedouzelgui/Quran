@@ -65,12 +65,34 @@ dialog{border:0;border-radius:18px;background:var(--card);color:var(--text);widt
   .cards .card,.cards.list .card{flex-wrap:wrap;gap:4px 10px}
   .c-act{flex:1 1 100%;justify-content:flex-end}
 }
+
+/* ===== Statistik (Übersicht) ===== */
+.st-hero{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.st-big{padding:18px 16px;border-radius:18px;color:#fff;background:linear-gradient(145deg,#25a66e,#07613e);box-shadow:var(--shadow)}
+.st-big.alt{background:linear-gradient(145deg,#3b8fd9,#1d4e8f)}
+.st-big b{display:block;font-size:clamp(30px,8vw,46px);line-height:1.05}
+.st-big span{font-size:13px;font-weight:800;opacity:.92}
+.st-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.st-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px}
+.st-card b{display:block;font-size:22px}
+.st-card small{color:var(--muted);font-weight:700}
+.st-bar{height:6px;background:var(--line);border-radius:9px;margin-top:8px;overflow:hidden}
+.st-bar i{display:block;height:100%;background:var(--green)}
+.st-list{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:16px}
+.st-list summary{cursor:pointer;padding:12px 14px;font-weight:800}
+.st-rows{max-height:420px;overflow:auto;padding:0 8px 8px}
+.st-row{display:grid;grid-template-columns:34px 1fr 62px 62px;gap:6px;align-items:center;padding:5px 6px;border-radius:8px;font-size:12px}
+.st-row span:nth-child(n+3){text-align:right}
+.st-row.head{position:sticky;top:0;background:var(--card);color:var(--muted);font-weight:800;font-size:10px;text-transform:uppercase}
+.st-row.on{background:color-mix(in srgb,var(--green) 18%,var(--card));font-weight:700}
+.st-row small{color:var(--muted);margin-left:5px}
+
 </style>
 </head><body>
 <div id="profileScreen" class="overlay" hidden><div class="profiles"><h1>Wer lernt gerade?</h1><div id="profileGrid" class="profile-grid"></div><button id="manageProfiles" class="manage">Profile verwalten</button></div></div>
 <header class="top"><div class="logo">۞</div><nav class="nav"><button class="active" data-view="plan">Wiederholungsplan</button><button data-view="overview">Übersicht</button><button data-view="calendar">Kalender</button></nav><div class="actions"><button id="themeBtn" class="btn round">◐</button><button id="profileBtn" class="round profileBtn">?</button></div></header>
 <main id="planPanel"><div class="stats"><div class="stat total"><b id="total">0</b><span>Einträge im Plan</span></div><div class="stat over"><b id="over">0</b><span>Überfällig</span></div><div class="stat today"><b id="today">0</b><span>Heute fällig</span></div><div class="stat ok"><b id="ok">0</b><span>Im Plan</span></div></div><div class="tools"><div class="search"><input id="search" placeholder="Sure suchen …"></div><button id="sortBtn" class="btn">Nach Fälligkeit</button><div class="switch"><button data-layout="grid" class="active">Boxen</button><button data-layout="list">Liste</button></div><span id="syncState" class="sync">Verbindung wird aufgebaut …</span></div><div class="heading"><h2 id="countTitle" style="margin:0">0 Einträge im Überblick</h2><button id="addBtn" class="plus">+</button></div><div id="cards" class="cards"></div><div id="empty" class="empty" hidden>Noch keine Sure im Wiederholungsplan.</div></main>
-<section id="overviewPanel" class="panel" hidden><h2>Übersicht</h2><p style="color:var(--muted)">Diese Markierungen sind vom Wiederholungsplan getrennt.</p><div class="progress"><i id="progressBar"></i></div><p id="progressText"></p><div id="juzGrid" class="juz-grid"></div></section>
+<section id="overviewPanel" class="panel" hidden><h2>Übersicht</h2><p style="color:var(--muted)">Diese Markierungen sind vom Wiederholungsplan getrennt.</p><div class="progress"><i id="progressBar"></i></div><p id="progressText"><div id="statsBox"></div></p><div id="juzGrid" class="juz-grid"></div></section>
 <section id="calendarPanel" class="panel" hidden><div class="calbar"><button class="btn" data-month="-1">‹ Zurück</button><h2 id="monthTitle"></h2><div><button class="btn" data-month="0">Heute</button> <button class="btn" data-month="1">Weiter ›</button></div></div><p style="color:var(--muted)">Rot: überfällig. Gestrichelt: nächste vorausberechnete Wiederholung.</p><div id="calendar" class="calendar"></div></section>
 <dialog id="itemDialog"><div class="dlg-head" id="itemTitle">Sure hinzufügen</div><div class="dlg-body"><div class="field"><label>Sure oder eigener Eintrag</label><input id="surahInput" list="surahList" placeholder="z. B. 67 · Al-Mulk oder eigener Name"><datalist id="surahList"></datalist></div><div class="field"><label>Abschnitt / Notiz</label><input id="sectionInput"></div><div class="field"><label>Zuletzt wiederholt</label><input id="lastInput" type="date"></div><div class="field"><label>Intervall in Tagen</label><input id="intervalInput" type="number" min="1" max="999" value="7"></div><div class="field"><label>Sortier-Nummer (wird nicht angezeigt)</label><input id="sortInput" type="number" step="1" placeholder="z. B. 1"></div></div><div class="dlg-foot"><button class="btn" data-close="itemDialog">Abbrechen</button><button id="saveItem" class="btn primary">Speichern</button></div></dialog>
 <dialog id="profileDialog"><div class="dlg-head">Profil</div><div class="dlg-body"><div class="field"><label>Name</label><input id="profileName" maxlength="30"></div><div class="field"><label>Icon auswählen</label><div id="avatarPicks" class="avatar-picks"></div></div></div><div class="dlg-foot"><button class="btn" data-close="profileDialog">Abbrechen</button><button id="saveProfile" class="btn primary">Speichern</button></div></dialog><div id="toast" class="toast"></div>
@@ -304,7 +326,45 @@ items.forEach(i=>{
 
 let h=['Mo','Di','Mi','Do','Fr','Sa','So'].map(x=>`<div class="weekday">${x}</div>`).join('');for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const iso=toISO(d);h+=`<div class="day ${d.getMonth()!==m?'out':''} ${iso===TODAY()?'today':''}" data-date="${iso}"><div class="date">${d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'})}</div>${events.filter(e=>e.date===iso).map(e=>e.type==='future'?`<div class="event future">${esc(e.item.name)}</div>`:`<button class="event ${e.type==='overdue'?'overdue':''}" draggable="true" data-event="${e.item.id}">${esc(e.item.name)}</button>`).join('')}</div>`}$('#calendar').innerHTML=h}
 
-function renderAll(){renderPlan();renderOverview();renderCalendar()}async function saveItemRow(row){setSync('Wird gespeichert …');const {error}=await db.from('hifz_items').upsert(row);if(error){toast(error.message);setSync('Fehler','err');return false}setSync('Gespeichert','ok');return true}
+// ===== Statistik =====
+const START=[1,2,50,77,106,128,151,177,187,208,221,235,249,255,262,267,282,293,305,312,322,332,342,350,359,367,377,385,396,404,411,415,418,428,434,440,446,453,458,467,477,483,489,496,499,502,507,511,515,518,520,523,526,528,531,534,537,542,545,549,551,553,554,556,558,560,562,564,566,568,570,572,574,575,577,578,580,582,583,585,586,587,587,589,590,591,591,592,593,594,595,595,596,596,597,597,598,598,599,599,600,600,601,601,601,602,602,602,603,603,603,604,604,604];
+const PAGES=(()=>{
+  const cnt={},seen={};
+  START.forEach(p=>cnt[p]=(cnt[p]||0)+1);
+  const pos=START.map(p=>{const k=seen[p]||0;seen[p]=k+1;return p+k/cnt[p]});
+  return pos.map((p,i)=>(i<113?pos[i+1]:605)-p);
+})();
+function renderStats(){
+  const box=$('#statsBox');if(!box)return;
+  const nf=(x,d=0)=>x.toLocaleString('de-DE',{maximumFractionDigits:d});
+  let pg=0,vs=0,n=0;
+  SURAHS.forEach((s,i)=>{if(marks.has(s.num)){pg+=PAGES[i];vs+=s.ay;n++}});
+  const TV=SURAHS.reduce((a,s)=>a+s.ay,0);
+  const pgPct=pg/604*100,vsPct=vs/TV*100;
+  const juzDone=JUZ.filter(r=>SURAHS.filter(s=>s.num>=r[0][0]&&s.num<=r[1][0]).every(s=>marks.has(s.num))).length;
+  const card=(val,label,pct)=>`<div class="st-card"><b>${val}</b><small>${label}</small>${pct!=null?`<div class="st-bar"><i style="width:${Math.min(100,pct)}%"></i></div>`:''}</div>`;
+  box.innerHTML=`
+    <div class="st-hero">
+      <div class="st-big"><b>${nf(pg,1)}</b><span>von 604 Seiten auswendig!</span></div>
+      <div class="st-big alt"><b>${nf(vs)}</b><span>von ${nf(TV)} Versen auswendig!</span></div>
+    </div>
+    <div class="st-grid">
+      ${card(n+' / 114','Suren',n/114*100)}
+      ${card(juzDone+' / 30','Ǧuzʾ komplett',juzDone/30*100)}
+      ${card(nf(pgPct,1)+' %','des Qurʾāns (Seiten)',pgPct)}
+      ${card(nf(vsPct,1)+' %','des Qurʾāns (Verse)',vsPct)}
+    </div>
+    <details class="st-list">
+      <summary>Alle Suren: Verse &amp; Seiten</summary>
+      <div class="st-rows">
+        <div class="st-row head"><span>Nr.</span><span>Sure</span><span>Verse</span><span>Seiten</span></div>
+        ${SURAHS.map((s,i)=>`<div class="st-row ${marks.has(s.num)?'on':''}"><span>${s.num}</span><span>${esc(s.name)}<small>${esc(s.ar)}</small></span><span>${s.ay}</span><span>${nf(PAGES[i],1)}</span></div>`).join('')}
+      </div>
+    </details>`;
+}
+
+
+function renderAll(){renderPlan();renderOverview();renderStats();renderCalendar()}async function saveItemRow(row){setSync('Wird gespeichert …');const {error}=await db.from('hifz_items').upsert(row);if(error){toast(error.message);setSync('Fehler','err');return false}setSync('Gespeichert','ok');return true}
 function openProfile(p=null){editingProfile=p?.id||null;$('#profileName').value=p?.name||'';selectedAvatar=p?.avatar||'cat';$('#avatarPicks').innerHTML=Object.keys(AVATARS).map(k=>`<button class="avatar-pick ${k===selectedAvatar?'selected':''}" data-avatar="${k}" title="${LABELS[k]}">${avatarMarkup(k)}</button>`).join('');$('#profileDialog').showModal()}
 $('#avatarPicks').onclick=e=>{const b=e.target.closest('[data-avatar]');if(!b)return;const name=$('#profileName').value.trim();if(b.dataset.avatar==='lion'&&name.toLocaleLowerCase('de-DE')!=='ahmed')return toast('Nur Ahmed der Löwe ist.');selectedAvatar=b.dataset.avatar;$$('.avatar-pick').forEach(x=>x.classList.toggle('selected',x===b))};
 $('#profileGrid').onclick=async e=>{const p=e.target.closest('[data-profile]'),add=e.target.closest('[data-add-profile]'),edit=e.target.closest('[data-edit-profile]'),del=e.target.closest('[data-delete-profile]');if(p)return chooseProfile(p.dataset.profile);if(add)return openProfile();if(edit)return openProfile(profiles.find(x=>x.id===edit.dataset.editProfile));if(del&&confirm('Profil und alle Daten löschen?')){await db.from('profiles').delete().eq('id',del.dataset.deleteProfile);if(activeProfile===del.dataset.deleteProfile){activeProfile=null;localStorage.removeItem('hifz-active-profile')}await loadProfiles()}};
